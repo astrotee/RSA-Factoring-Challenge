@@ -9,6 +9,9 @@ void factors(mpz_ptr n) {
   mpz_t b1, b2, rn, tmp;
   mpz_inits(b1, b2, rn, tmp, NULL);
   mpz_sqrt(rn, n);
+  if (!mpz_perfect_square_p(n)) {
+    mpz_add_ui(rn, rn, 1);
+  }
   mpz_set_ui(b1, 2);
   mpz_set(b2, rn);
   for (; counter <= 100; counter++) {
