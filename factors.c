@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define MAX_ITER 1E10
+
 void factors(mpz_ptr n) {
   size_t counter = 0;
   mpz_ptr a, b = NULL;
@@ -14,7 +16,7 @@ void factors(mpz_ptr n) {
   }
   mpz_set_ui(b1, 2);
   mpz_set(b2, rn);
-  for (; counter <= 100; counter++) {
+  for (; counter <= MAX_ITER; counter++) {
     mpz_mod(tmp, n, b1);
     if (mpz_cmp_ui(tmp, 0) == 0) {
       mpz_div(tmp, n, b1);
@@ -33,6 +35,10 @@ void factors(mpz_ptr n) {
     mpz_add_ui(b2, b2, 1);
   }
   char *nstr = mpz_get_str(NULL, 10, n);
+  if (counter > MAX_ITER) {
+    fprintf(stderr, "failed to factor %s after %zu tries\n", nstr, counter);
+    exit(1);
+  }
   char *astr = mpz_get_str(NULL, 10, a);
   char *bstr = mpz_get_str(NULL, 10, b);
   printf("%s=%s*%s\n", nstr, astr, bstr);
