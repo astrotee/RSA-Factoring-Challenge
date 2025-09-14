@@ -34,6 +34,7 @@ void factors(mpz_ptr n) {
   }
   printf("%lu=%lu*%lu\n", mpz_get_ui(n), mpz_get_ui(a), mpz_get_ui(b));
   mpz_clears(b1, b2, rn, tmp);
+  mpz_clears(b1, b2, rn, tmp, NULL);
 }
 
 int main(int argc, char *argv[]) {
