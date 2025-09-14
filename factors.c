@@ -32,8 +32,13 @@ void factors(mpz_ptr n) {
     mpz_add_ui(b1, b1, 1);
     mpz_add_ui(b2, b2, 1);
   }
-  printf("%lu=%lu*%lu\n", mpz_get_ui(n), mpz_get_ui(a), mpz_get_ui(b));
-  mpz_clears(b1, b2, rn, tmp);
+  char *nstr = mpz_get_str(NULL, 10, n);
+  char *astr = mpz_get_str(NULL, 10, a);
+  char *bstr = mpz_get_str(NULL, 10, b);
+  printf("%s=%s*%s\n", nstr, astr, bstr);
+  free(nstr);
+  free(astr);
+  free(bstr);
   mpz_clears(b1, b2, rn, tmp, NULL);
 }
 
